@@ -1,0 +1,16 @@
+  
+library(dplyr)
+library(ggplot2)
+df = force(iris)
+df = df[,c(2,5)]
+df = df %>% filter(df$Species != "virginica")
+ggplot(df, aes(x = Sepal.Width))+
+  geom_bar(aes(fill=Species))+
+  facet_grid(. ~ Species)+
+  theme_classic()
+m = df %>% filter(df$Species == "setosa")
+l = df %>% filter(df$Species == "versicolor")
+shapiro.test(m$Sepal.Width)
+shapiro.test(l$Sepal.Width)
+bartlett.test(df$Sepal.Width, df$Species)
+t.test(m$Sepal.Width, l$Sepal.Width)
